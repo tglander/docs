@@ -41,6 +41,14 @@ Click on the **Settings** tab and set the **Allowed Callback URLs**. This varies
 | Europe | `https://${account.tenant}.eu.webtask.io/auth0-delegated-admin/login` |
 | Australia | `https://${account.tenant}.au.webtask.io/auth0-delegated-admin/login` |
 
+You will also need to configure the **Allowed Logout URLs**:
+
+| Location | Allowed Logout URL |
+| --- | --- |
+| USA | `https://${account.tenant}.us.webtask.io/auth0-delegated-admin` |
+| Europe | `https://${account.tenant}.eu.webtask.io/auth0-delegated-admin` |
+| Australia | `https://${account.tenant}.au.webtask.io/auth0-delegated-admin` |
+
 Copy the **Client ID** value.
 
 Navigate to **Settings > Show Advanced Settings > OAuth** and paste the **Client ID** value to the **Allowed APPs / APIs** field.
@@ -63,7 +71,7 @@ Switch over to the Client's **Connections** tab and disable all the Connections 
 
 In the navigation pane of the Management Dashboard, click on **Connections** > [Database Connections](${manage_url}/#/connections/database).
 
-On the Database Connections page, click on **+Create DB Connection**. Provide a name for your Connection, such as `Helpdesk`. 
+On the Database Connections page, click on **+Create DB Connection**. Provide a name for your Connection, such as `Helpdesk`.
 
 Click **Save** to proceed.
 
