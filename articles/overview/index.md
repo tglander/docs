@@ -13,7 +13,7 @@ You can connect any application (written in any language or on any stack) to Aut
 * [Custom credentials](/connections/database): username + passwords
 * [Social network logins](/identityproviders#social): Google, Facebook, Twitter, and any OAuth2, OAuth1 or OpenID Connect provider
 * [Enterprise directories](/identityproviders#enterprise): LDAP, Google Apps, Office 365, ADFS, AD, SAML-P, WS-Federation, etc.
-* [Passwordless systems](/connections/passwordless): Touch ID, one time codes on SMS, or email
+* [Passwordless systems](/connections/passwordless): One time codes on SMS, or email
 
 ## Video: Developer Overview
 

@@ -2,8 +2,8 @@
 <script src="${lock_url}"></script>
 <script>
 const options = {
+  oidcConformant: true,
   auth: {
-    oidcConformant: true,
     redirectUrl: 'http://localhost:CHANGE-TO-YOUR-PORT/callback',
     params: {
       audience: 'https://${account.namespace}/userinfo',

@@ -158,7 +158,7 @@ Create an HTML file with the following HTML and JavaScript:
 
     <script src="${lock_url}"></script>
     <script type="text/javascript">
-      var lock = new Auth0Lock('${account.clientId}', '${account.namespace}');
+      var lock = new Auth0Lock('${account.clientId}', '${account.namespace}', { oidcConformant : true});
 
       function signin() {
         lock.show({
