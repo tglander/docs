@@ -20,56 +20,58 @@ This step demonstrates how to use Auth0 to create access roles for your users. W
 
 ## Before Starting
 
-Be sure that you have completed the [user profile](04-user-profile) quickstart.
+Be sure that you have completed the [Login](/quickstart/native/android/00-login) quickstart.
 
 ## Create A Rule To Assign Roles
 
-First, you need to create a rule that assigns your users either an `admin` role, or a single `user` role. To do so, go to the [new rule page](${manage_url}/#/rules/new) and select the "*Set Roles To A User*" template, under *Access Control*. Then, replace this line from the default script:
-
-```java
-if (user.email.indexOf('@example.com') > -1)
-```
-to match the condition that fits your needs.
-
-By default, it says that if the user email contains `@example.com` then they will be given an `admin` role, otherwise a regular `user` role.
-
-::: note
-You can define more roles other than `admin` and `user`, depending on your product requirements.
-:::
-
-::: note
-In the demo app, we use `@admin.com` to validate, like the next rule:
-:::
+First, you need to create a rule that assigns your users either an `admin` role, or a simple `user` role. To do so, go to the [new rule page](${manage_url}/#/rules/new) and select the "*Set Roles To A User*" template, under *Access Control*. Then, replace the default script with the contents of the following snippet:
 
 ```js
-  var addRolesToUser = function(user, cb) {
-    if (user.email.indexOf('@admin.com') > -1) {
-      cb(null, ['admin']);
-    } else {
-      cb(null, ['user']);
-    }
-  };
+function (user, context, callback) {
+
+  //Define the name of the claim. Must look like a url:
+  //Have 'http' or 'https' scheme and a hostname other than
+  //'auth0.com', 'webtask.io' and 'webtask.run'.
+  var claimName = 'https://access.control/roles';
+
+  //Check if the email has the 'admin.com' domain and give the 'admin' role.
+  //Otherwise, keep a default 'user' role.
+  var roles = ['user'];
+  if (user.email && user.email.indexOf('@admin.com') > -1) {
+      roles.push('admin');
+  }
+  //Set the role claim in the id_token
+  context.idToken[claimName] = roles;
+
+  callback(null, user, context);
+}
 ```
+
+The rule will run every time a user attempts to authenticate. If the user has a valid `email` and the email's domain is `admin.com`, the user will be granted the `user` and `admin` roles. On any other case, the user will be granted a simple `user` role. This new claim is saved in the *id_token* under the `https://access.control/roles` name, which you will have to check on your app.
+
+::: note
+Feel free to customize the required conditions and the different roles to grant on each of them. You can define more roles other than `admin` and `user`, depending on your product requirements. There is a restriction on the naming of the claims, please read [this article](https://auth0.com/docs/rules/current#hello-world) for more context about Rules.
+:::
+
 
 ## Test the Rule in Your Project
 
-Once you have the user profile (as explained in the [user profile](04-user-profile) tutorial), you can save it and access it at any point.
+Once you have the user credentials (as explained in the [Login](/quickstart/native/android/00-login) tutorial), you can save and access them at any point.
 
-Inside it, you will have the role, and you will be ready to perform the access control.
+The *id_token* is a [JWT](https://auth0.com/docs/jwt) that holds several claims, like the one with the roles you set. By using a *JWT decoding library* like [this one](https://github.com/auth0/JWTDecode.Android) you will be able to obtain the roles and perform the access control.
 
 ```java
 // app/src/main/java/com/auth0/samples/activities/MainActivity.java
-List<String> roles = (List<String>) mUserProfile.getAppMetadata().get("roles");
+JWT idToken = new JWT(CredentialsManager.getCredentials(this).getIdToken());
+final List<String> roles = idToken.getClaim("https://access.control/roles").asList(String.class);
 
-if (roles.contains("admin")) {
- // perform any action
-};
+if (!roles.contains("admin")) {
+  // User is not authorized
+} else {
+  // User is authorized  
+}
 ```
-
-::: note
-Notice that you'll find the `roles` information within the `appMetadata` HashMap and not in the `userMetadata`. Application metadata cannot be modified by users, whereas User metadata can be.
-:::
 
 ## Restrict Content Based On Access Level
 
-At this point, you are able to distinguish the users roles in your app and authorize or deny (depending on the user) access to a certain feature.
+At this point, you are able to distinguish the users roles in your app and authorize or deny (depending on the user) access to a certain feature. In the sample project those users with the `admin` role will be able to access the "Settings Activity".
