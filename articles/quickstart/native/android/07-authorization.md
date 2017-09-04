@@ -50,7 +50,7 @@ function (user, context, callback) {
 The rule will run every time a user attempts to authenticate. If the user has a valid `email` and the email's domain is `admin.com`, the user will be granted the `user` and `admin` roles. On any other case, the user will be granted a simple `user` role. This new claim is saved in the *id_token* under the `https://access.control/roles` name, which you will have to check on your app.
 
 ::: note
-Feel free to customize the required conditions and the different roles to grant on each of them. You can define more roles other than `admin` and `user`, depending on your product requirements. There is a restriction on the naming of the claims, please read [this article](https://auth0.com/docs/rules/current#hello-world) for more context about Rules.
+Feel free to customize the conditions and the roles to grant on each of them. You can define as many roles as your project requires, beyond `admin` and `user`. There are some restrictions on the naming of the claims detailed in the [rules documentation](/rules/#hello-world).
 :::
 
 
@@ -58,7 +58,7 @@ Feel free to customize the required conditions and the different roles to grant 
 
 Once you have the user credentials (as explained in the [Login](/quickstart/native/android/00-login) tutorial), you can save and access them at any point.
 
-The *id_token* is a [JWT](https://auth0.com/docs/jwt) that holds several claims, like the one with the roles you set. By using a *JWT decoding library* like [this one](https://github.com/auth0/JWTDecode.Android) you will be able to obtain the roles and perform the access control.
+The id_token is a [JWT](/jwt) that holds several claims, like the one with the roles you set previously. By using a JWT decoding library (like [this one](https://github.com/auth0/JWTDecode.Android)) you will be able to obtain the roles and perform access control.
 
 ```java
 // app/src/main/java/com/auth0/samples/activities/MainActivity.java
