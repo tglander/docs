@@ -74,10 +74,6 @@ The Settings page is broken down into the following sections:
 
 * **Update Proxy**: unless your specific configuration is set up for offline updates, please leave this field blank.
 
-## Monitoring
-
-* **New Relic License Key**: if you use New Relic for monitoring, enter your license key here to monitor your PSaaS Appliance instances.
-
 ## API Keys
 
 * **Health service**: generates a key that authenticates your API calls for status information regarding your PSaaS Appliance instances;
