@@ -61,7 +61,7 @@ If you are using browserify or webpack to build your project and bundle its depe
 
 ### 1. Initializing Lock
 
-First, you'll need to initialize a new `Auth0Lock` or `Auth0LockPasswordless` object, and provide it with your Auth0 client ID (the unique client ID for each Auth0 client app, which you can get from the [management dashboard](${manage_url})) and your Auth0 domain (i.e. `jeffstest.auth0.com`). Both `Auth0Lock` and `Auth0LockPasswordless` have the same public methods.
+First, you'll need to initialize a new `Auth0Lock` object (or an `Auth0LockPasswordless` object, if you are going to be implementing passwordless authentication). Then, you'll have to provide your Auth0 client ID (the unique client ID for each Auth0 client app, which you can get from the [management dashboard](${manage_url})) and your Auth0 domain (i.e. `jeffstest.auth0.com`). Both `Auth0Lock` and `Auth0LockPasswordless` have the same public methods.
 
 ```js
 // Initializing Auth0Lock
